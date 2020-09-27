@@ -50,7 +50,8 @@ for sp in splits:
         else:
             name_B = name_A
         path_B = os.path.join(img_fold_B, name_B)
-        print(path_A, path_B)
+        # Just for this
+        path_B = path_B.replace("TIF", "JPEG")
         if os.path.isfile(path_A) and os.path.isfile(path_B):
             name_AB = name_A
             if args.use_AB:
