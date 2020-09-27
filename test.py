@@ -68,7 +68,7 @@ if __name__ == '__main__':
         for k in range(0, w, cs):
             for j in range(0, h, cs):
                 cur_data = {'A': data['A'][:, :, k:k+cs, j:j+cs], 'B': data['B'][:, :, k:k+cs, j:j+cs],
-                            'A_paths': data['AB_path'], 'B_paths': data['AB_path']}
+                            'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
                 model.set_input(cur_data)  # unpack data from data loader
                 model.test()  # run inference
                 visuals = model.get_current_visuals()  # get image results
