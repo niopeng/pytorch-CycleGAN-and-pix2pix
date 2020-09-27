@@ -32,6 +32,7 @@ from data import create_dataset
 from models import create_model
 from util.visualizer import save_images
 from util import html
+import torch
 
 
 if __name__ == '__main__':
@@ -59,12 +60,27 @@ if __name__ == '__main__':
     for i, data in enumerate(dataset):
         if i >= opt.num_test:  # only apply our model to opt.num_test images.
             break
-        print(data['A'].shape)
-        print(a)
-        # for i in range()
-        model.set_input(data)  # unpack data from data loader
-        model.test()           # run inference
-        visuals = model.get_current_visuals()  # get image results
+        bs, c, w, h = data['A'].shape
+        cs = opt.crop_size
+        w = int((w // cs) * cs)
+        h = int((h // cs) * cs)
+        fake = torch.empty(bs, c, w, h)
+        for k in range(0, w, cs):
+            for j in range(0, h, cs):
+                cur_data = {'A': data['A'][:, :, k:k+cs, j:j+cs], 'B': data['B'][:, :, k:k+cs, j:j+cs],
+                            'A_paths': data['AB_path'], 'B_paths': data['AB_path']}
+                model.set_input(cur_data)  # unpack data from data loader
+                model.test()  # run inference
+                visuals = model.get_current_visuals()  # get image results
+                fake[:, :, k:k+cs, j:j+cs] = visuals['fake_B'].detach().float().cpu()
+        visuals = {
+            "real_A": data['B'],
+            "real_B": data['A'],
+            "fake_B": fake,
+        }
+        # model.set_input(data)  # unpack data from data loader
+        # model.test()           # run inference
+        # visuals = model.get_current_visuals()  # get image results
         img_path = model.get_image_paths()     # get image paths
         if i % 5 == 0:  # save images to an HTML file
             print('processing (%04d)-th image... %s' % (i, img_path))
