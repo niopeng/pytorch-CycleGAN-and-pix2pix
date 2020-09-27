@@ -41,7 +41,8 @@ class AlignedDataset(BaseDataset):
         AB_path = self.AB_paths[index]
         # AB = Image.open(AB_path).convert('RGB')
         AB = cv2.cvtColor(cv2.imread(AB_path), cv2.COLOR_BGR2RGB)
-        print(AB.shape)
+        AB = Image.fromarray(AB.astype('uint8'), 'RGB')
+        # print(AB.shape)
         # split AB image into A and B
         w, h = AB.size
         w2 = int(w / 2)
