@@ -34,8 +34,8 @@ def make_dataset(dir, max_dataset_size=float("inf")):
 
 
 def default_loader(path):
-    # return Image.open(path).convert('RGB')
-    return cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB)
+    return Image.open(path).convert('RGB')
+    # return cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB)
 
 
 class ImageFolder(data.Dataset):
