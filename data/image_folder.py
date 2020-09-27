@@ -7,6 +7,7 @@ so that this class can load images from both current directory and its subdirect
 import torch.utils.data as data
 
 from PIL import Image
+import cv2
 import os
 
 IMG_EXTENSIONS = [
@@ -33,7 +34,8 @@ def make_dataset(dir, max_dataset_size=float("inf")):
 
 
 def default_loader(path):
-    return Image.open(path).convert('RGB')
+    # return Image.open(path).convert('RGB')
+    return cv2.cvtColor(cv2.imread(path), cv2.COLOR_BGR2RGB)
 
 
 class ImageFolder(data.Dataset):
