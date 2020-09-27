@@ -40,7 +40,10 @@ class AlignedDataset(BaseDataset):
         # read a image given a random integer index
         AB_path = self.AB_paths[index]
         # AB = Image.open(AB_path).convert('RGB')
-        AB = cv2.cvtColor(cv2.imread(AB_path), cv2.COLOR_BGR2RGB)
+        im = cv2.imread(AB_path)
+        if im is None:
+            print(AB_path)
+        AB = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
         AB = Image.fromarray(AB.astype('uint8'), 'RGB')
         # print(AB.shape)
         # split AB image into A and B
