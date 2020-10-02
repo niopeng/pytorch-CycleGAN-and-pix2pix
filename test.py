@@ -61,15 +61,19 @@ if __name__ == '__main__':
         if i >= opt.num_test:  # only apply our model to opt.num_test images.
             break
 
-        print(data['A_paths'])
-        if "r00b8d4a2t" not in data['A_paths'][0]:
-            continue
+        # print(data['A_paths'])
+        # if "r00b8d4a2t" not in data['A_paths'][0]:
+        #     continue
 
         bs, c, w, h = data['A'].shape
         cs = opt.crop_size
 
-        cur_data = {'A': data['A'][:, :, 1344:1344+512, 1160:1160+512], 'B': data['B'][:, :, 1344:1344+512, 1160:1160+512],
+        cur_data = {'A': data['A'][:, :, int(w / 2 - 256):int(w / 2 + 256), int(h / 2 - 256):int(h / 2 + 256)],
+                    'B': data['B'][:, :, int(w / 2 - 256):int(w / 2 + 256), int(h / 2 - 256):int(h / 2 + 256)],
                     'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
+
+        # cur_data = {'A': data['A'][:, :, 1344:1344+512, 1160:1160+512], 'B': data['B'][:, :, 1344:1344+512, 1160:1160+512],
+        #             'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
         model.set_input(cur_data)  # unpack data from data loader
         model.test()  # run inference
         visuals = model.get_current_visuals()  # get image results
