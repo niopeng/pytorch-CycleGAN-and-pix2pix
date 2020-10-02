@@ -62,7 +62,7 @@ if __name__ == '__main__':
             break
 
         print(data['A_paths'])
-        if "r00b8d4a2t" not in data['A_paths']:
+        if "r00b8d4a2t" not in data['A_paths'][0]:
             continue
 
         bs, c, w, h = data['A'].shape
