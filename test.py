@@ -60,24 +60,36 @@ if __name__ == '__main__':
     for i, data in enumerate(dataset):
         if i >= opt.num_test:  # only apply our model to opt.num_test images.
             break
+
+        print(data['A_paths'])
+        if "r00b8d4a2t" not in data['A_paths']:
+            continue
+
         bs, c, w, h = data['A'].shape
         cs = opt.crop_size
-        w = int((w // cs) * cs)
-        h = int((h // cs) * cs)
-        fake = torch.empty(bs, c, w, h)
-        for k in range(0, w, cs):
-            for j in range(0, h, cs):
-                cur_data = {'A': data['A'][:, :, k:k+cs, j:j+cs], 'B': data['B'][:, :, k:k+cs, j:j+cs],
-                            'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
-                model.set_input(cur_data)  # unpack data from data loader
-                model.test()  # run inference
-                visuals = model.get_current_visuals()  # get image results
-                fake[:, :, k:k+cs, j:j+cs] = visuals['fake_B'].detach().float().cpu()
-        visuals = {
-            "real_A": data['B'],
-            "real_B": data['A'],
-            "fake_B": fake,
-        }
+
+        cur_data = {'A': data['A'][:, :, 1344:1344+512, 1160:1160+512], 'B': data['B'][:, :, 1344:1344+512, 1160:1160+512],
+                    'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
+        model.set_input(cur_data)  # unpack data from data loader
+        model.test()  # run inference
+        visuals = model.get_current_visuals()  # get image results
+
+        # w = int((w // cs) * cs)
+        # h = int((h // cs) * cs)
+        # fake = torch.empty(bs, c, w, h)
+        # for k in range(0, w, cs):
+        #     for j in range(0, h, cs):
+        #         cur_data = {'A': data['A'][:, :, k:k+cs, j:j+cs], 'B': data['B'][:, :, k:k+cs, j:j+cs],
+        #                     'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
+        #         model.set_input(cur_data)  # unpack data from data loader
+        #         model.test()  # run inference
+        #         visuals = model.get_current_visuals()  # get image results
+        #         fake[:, :, k:k+cs, j:j+cs] = visuals['fake_B'].detach().float().cpu()
+        # visuals = {
+        #     "real_A": data['B'],
+        #     "real_B": data['A'],
+        #     "fake_B": fake,
+        # }
         # model.set_input(data)  # unpack data from data loader
         # model.test()           # run inference
         # visuals = model.get_current_visuals()  # get image results
