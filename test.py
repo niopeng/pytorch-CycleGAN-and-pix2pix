@@ -71,8 +71,8 @@ if __name__ == '__main__':
             x = 512
             y = 1280
         elif "r00b8d4a2t" in data['A_paths'][0]:
-            x = 1160
-            y = 1344
+            x = 1344
+            y = 1160
         elif "r07db8a54t" in data['A_paths'][0]:
             x = 956
             y = 2588
