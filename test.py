@@ -64,13 +64,40 @@ if __name__ == '__main__':
         # print(data['A_paths'])
         # if "r00b8d4a2t" not in data['A_paths'][0]:
         #     continue
+        if "r0c5e9567t" in data['A_paths'][0]:
+            x = 2112
+            y = 962
+        elif "r15d1c836t" in data['A_paths'][0]:
+            x = 1280
+            y = 512
+        elif "r00b8d4a2t" in data['A_paths'][0]:
+            x = 1344
+            y = 1160
+        elif "r07db8a54t" in data['A_paths'][0]:
+            x = 2588
+            y = 956
+        elif "r0279b17bt" in data['A_paths'][0]:
+            x = 549
+            y = 826
+        elif "r00de2590t" in data['A_paths'][0]:
+            x = 1639
+            y = 2042
+        else:
+            continue
 
-        bs, c, w, h = data['A'].shape
-        cs = opt.crop_size
+        cur_data = {
+            'A': data['A'][:, :, x:x + 512, y:y + 512],
+            'B': data['B'][:, :, x:x + 512, y:y + 512],
+            'A_paths': data['A_paths'],
+            'B_paths': data['B_paths'],
+        }
 
-        cur_data = {'A': data['A'][:, :, int(w / 2 - 256):int(w / 2 + 256), int(h / 2 - 256):int(h / 2 + 256)],
-                    'B': data['B'][:, :, int(w / 2 - 256):int(w / 2 + 256), int(h / 2 - 256):int(h / 2 + 256)],
-                    'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
+        # bs, c, w, h = data['A'].shape
+        # cs = opt.crop_size
+        #
+        # cur_data = {'A': data['A'][:, :, int(w / 2 - 256):int(w / 2 + 256), int(h / 2 - 256):int(h / 2 + 256)],
+        #             'B': data['B'][:, :, int(w / 2 - 256):int(w / 2 + 256), int(h / 2 - 256):int(h / 2 + 256)],
+        #             'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
 
         # cur_data = {'A': data['A'][:, :, 1344:1344+512, 1160:1160+512], 'B': data['B'][:, :, 1344:1344+512, 1160:1160+512],
         #             'A_paths': data['A_paths'], 'B_paths': data['B_paths']}
