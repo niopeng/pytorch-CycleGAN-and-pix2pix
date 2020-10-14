@@ -65,23 +65,23 @@ if __name__ == '__main__':
         # if "r00b8d4a2t" not in data['A_paths'][0]:
         #     continue
         if "r0c5e9567t" in data['A_paths'][0]:
-            x = 2112
-            y = 962
+            x = 962
+            y = 2112
         elif "r15d1c836t" in data['A_paths'][0]:
-            x = 1280
-            y = 512
+            x = 512
+            y = 1280
         elif "r00b8d4a2t" in data['A_paths'][0]:
-            x = 1344
-            y = 1160
+            x = 1160
+            y = 1344
         elif "r07db8a54t" in data['A_paths'][0]:
-            x = 2588
-            y = 956
+            x = 956
+            y = 2588
         elif "r0279b17bt" in data['A_paths'][0]:
-            x = 549
-            y = 826
+            x = 826
+            y = 549
         elif "r00de2590t" in data['A_paths'][0]:
-            x = 1639
-            y = 2042
+            x = 2042
+            y = 1639
         else:
             continue
 
